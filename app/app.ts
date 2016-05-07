@@ -1,10 +1,12 @@
 import {App, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
+import {ProjectService} from './services/project';
 
 
 @App({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
+  providers: [ProjectService],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {

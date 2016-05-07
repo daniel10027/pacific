@@ -1,4 +1,5 @@
-import {Page} from 'ionic-angular';
+import {Page, NavController} from 'ionic-angular';
+import {AddProjectPage} from '../add-project/add-project';
 import {Project} from '../../models/project';
 import {ProjectList} from '../../components/project-list/project-list';
 
@@ -9,7 +10,11 @@ import {ProjectList} from '../../components/project-list/project-list';
 export class HomePage {
   projects: Array<Project> = [];
 
-  constructor() {
+  constructor(private nav: NavController) {
 
+  }
+
+  addProjectTapped() {
+    this.nav.push(AddProjectPage, {});
   }
 }
