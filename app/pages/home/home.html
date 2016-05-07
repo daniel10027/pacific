@@ -1,16 +1,9 @@
 <ion-navbar *navbar>
   <ion-title>
-    Home
+    Projects
   </ion-title>
 </ion-navbar>
 
 <ion-content class="home">
-  <ion-card>
-    <ion-card-header>
-      Card Header
-    </ion-card-header>
-    <ion-card-content>
-      Hello World
-    </ion-card-content>
-  </ion-card>
+  <project-list [projects]="projects"></project-list>
 </ion-content>
