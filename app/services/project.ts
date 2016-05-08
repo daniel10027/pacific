@@ -9,10 +9,19 @@ export class ProjectService {
 
   get(id: string): Promise<Project> {
     return this.db.get(id)
-      .then(doc => ProjectService.mapProject(doc));
+      .then(ProjectService.mapProject);
+  }
+
+  getAll(options = {}): Promise<Array<Project>> {
+    const _options = Object.assign({
+      include_docs: true
+    }, options);
+    return this.db.allDocs(_options)
+      .then(results => results.rows.map(item => ProjectService.mapProject(item.doc)));
   }
 
   add(project: Project): Promise<any> {
+    project._id = new Date().toISOString();
     return this.db.post(project);
   }
 
@@ -26,7 +35,7 @@ export class ProjectService {
 
   private static mapProject(doc) {
     let project = new Project();
-    project.id = doc._id;
+    project._id = doc._id;
     project.name = doc.name;
     project.description = doc.description;
     return project;
