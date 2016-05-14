@@ -1,9 +1,11 @@
-<ion-list>
-  <ion-item *ngFor="#project of projects">
-    <ion-thumbnail item-left *ngIf="project.cover">
-      <img src="{{ project.cover }}">
-    </ion-thumbnail>
-    <h2>{{ project.name }}</h2>
-    <p>{{ project.description }}</p>
-  </ion-item>
-</ion-list>
+<ion-card *ngFor="#project of projects">
+  <img src="{{ project.cover }}" *ngIf="project.cover" />
+  <ion-card-content>
+    <ion-card-title>
+      {{ project.name }}
+    </ion-card-title>
+    <p>
+      {{ project.description }}
+    </p>
+  </ion-card-content>
+</ion-card>
