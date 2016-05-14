@@ -1,0 +1,23 @@
+<ion-navbar *navbar primary>
+  <ion-title>
+    Project "{{ project.name }}"
+  </ion-title>
+</ion-navbar>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item>
+      <p>{{ project.createdAt | date: 'medium' }}</p>
+      <ion-card-header>
+        {{ project.name }}
+      </ion-card-header>
+      <ion-card-content>
+        {{ project.description }}
+      </ion-card-content>
+    </ion-item>
+  </ion-card>
+
+  <project-photo-list [project]="project"></project-photo-list>
+
+</ion-content>

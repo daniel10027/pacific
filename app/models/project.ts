@@ -22,6 +22,10 @@ export class Project {
     }
   }
 
+  get createdAt() {
+    return new Date(this._id);
+  }
+
   get valid() {
     return !!this.name;
   }

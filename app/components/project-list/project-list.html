@@ -1,4 +1,4 @@
-<ion-card *ngFor="#project of projects">
+<ion-card *ngFor="#project of projects" (click)="openProject(project)">
   <img src="{{ project.cover }}" *ngIf="project.cover" />
   <ion-card-content>
     <ion-card-title>

@@ -7,4 +7,5 @@ import {Project} from '../../models/project';
 })
 export class ProjectPhotoList {
   @Input() project: Project;
+  @Input() editable: boolean;
 }

@@ -1,5 +1,7 @@
 import {Component, Input} from 'angular2/core';
+import {NavController} from 'ionic-angular';
 import {Project} from '../../models/project';
+import {ProjectPage} from '../../pages/project/project';
 
 @Component({
   selector: 'project-list',
@@ -7,4 +9,14 @@ import {Project} from '../../models/project';
 })
 export class ProjectList {
   @Input() projects: Array<Project>;
+
+  constructor(private nav: NavController) {
+
+  }
+
+  openProject(project: Project) {
+    this.nav.push(ProjectPage, {
+      project
+    });
+  }
 }
