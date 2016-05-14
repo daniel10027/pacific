@@ -1,0 +1,30 @@
+<ion-card *ngFor="#photo of project.photos">
+
+  <ion-item *ngIf="project.cover === photo">
+    <h2>
+      <ion-icon name="star"></ion-icon> Cover
+    </h2>
+  </ion-item>
+
+  <img src="{{ photo }}"/>
+
+  <ion-row no-padding>
+
+    <ion-col>
+      <button clear small danger
+              *ngIf="project.cover !== photo"
+              (click)="project.cover = photo">
+        <ion-icon name="star"></ion-icon>
+        Set as cover
+      </button>
+    </ion-col>
+
+    <ion-col text-right>
+      <button clear small danger (click)="project.removePhoto(photo)">
+        <ion-icon name="share-alt"></ion-icon>
+        Remove
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
