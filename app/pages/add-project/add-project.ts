@@ -1,3 +1,4 @@
+import {FormBuilder, Validators, ControlGroup, AbstractControl} from 'angular2/common';
 import {Page, NavController} from 'ionic-angular';
 import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project';
@@ -11,13 +12,27 @@ import {ProjectPhotoList} from '../../components/project-photo-list/project-phot
 })
 export class AddProjectPage {
   project: Project = new Project();
+  name: AbstractControl;
+  description: AbstractControl;
+  projectForm: ControlGroup;
 
-  constructor(private nav: NavController,
+  constructor(form: FormBuilder,
+              private nav: NavController,
               private projectService: ProjectService,
               private pictureService: PictureService) {
+
+    // Set project form
+    this.projectForm = form.group({
+      name: ['', Validators.required],
+      description: ['']
+    });
+    this.name = this.projectForm.controls['name'];
+    this.description = this.projectForm.controls['description'];
   }
 
-  saveProject() {
+  saveProject(values) {
+    this.project.name = values.name;
+    this.project.description = values.description;
     this.projectService.add(this.project)
       .then(() => {
         // Go to the previous page

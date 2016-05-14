@@ -21,4 +21,8 @@ export class Project {
       this.cover = this.photos[0] || '';
     }
   }
+
+  get valid() {
+    return !!this.name;
+  }
 }

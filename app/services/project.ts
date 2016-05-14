@@ -21,6 +21,9 @@ export class ProjectService {
   }
 
   add(project: Project): Promise<any> {
+    if (!project.valid) {
+      return Promise.reject(new Error('Trying to save an invalid project'));
+    }
     project._id = new Date().toISOString();
     return this.db.post(project);
   }

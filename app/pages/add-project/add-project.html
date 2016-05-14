@@ -3,24 +3,26 @@
     Add Project
   </ion-title>
   <ion-buttons end>
-    <button (click)="saveProject()">
+    <button (click)="saveProject(projectForm.value)" [disabled]="!projectForm.valid">
       SAVE
     </button>
   </ion-buttons>
 </ion-navbar>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Name</ion-label>
-      <ion-input type="text" [(ngModel)]="project.name"></ion-input>
-    </ion-item>
+  <form [ngFormModel]="projectForm" (ngSubmit)="saveProject(projectForm.value)">
+    <ion-list>
+      <ion-item [class.error]="!name.valid && name.touched">
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" [ngFormControl]="name"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Description of the service performed</ion-label>
-      <ion-textarea type="text" [(ngModel)]="project.description"></ion-textarea>
-    </ion-item>
-  </ion-list>
+      <ion-item>
+        <ion-label floating>Description of the service performed</ion-label>
+        <ion-textarea type="text" [ngFormControl]="description"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
 
   <project-photo-list [project]="project"></project-photo-list>
 
