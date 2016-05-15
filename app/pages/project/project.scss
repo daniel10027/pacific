@@ -1,0 +1,15 @@
+.project {
+  #google-maps {
+    width: 100%;
+    height: 250px;
+  }
+
+  .location {
+    position: relative;
+  }
+
+  button[fab].fab-map {
+    top: calc(100% - 35px);
+    z-index: 50;
+  }
+}

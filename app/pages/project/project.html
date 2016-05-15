@@ -4,9 +4,17 @@
   </ion-title>
 </ion-navbar>
 
-<ion-content>
+<ion-content class="project">
 
   <ion-card>
+
+    <div *ngIf="project.location" class="location">
+      <google-maps [center]="project.location" [markers]="[project.location]"></google-maps>
+      <button fab fab-right fab-bottom class="fab-map">
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </div>
+
     <ion-item>
       <p>{{ project.createdAt | date: 'medium' }}</p>
       <ion-card-header>

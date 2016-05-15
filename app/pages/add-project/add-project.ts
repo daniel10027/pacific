@@ -3,12 +3,16 @@ import {Page, NavController} from 'ionic-angular';
 import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project';
 import {PictureService} from '../../services/picture';
+import {SelectLocationPage} from '../select-location/select-location';
 import {ProjectPhotoList} from '../../components/project-photo-list/project-photo-list';
-
+import {GoogleMaps} from '../../components/google-maps/google-maps';
 
 @Page({
   templateUrl: 'build/pages/add-project/add-project.html',
-  directives: [ProjectPhotoList]
+  directives: [
+    ProjectPhotoList,
+    GoogleMaps
+  ]
 })
 export class AddProjectPage {
   project: Project = new Project();
@@ -49,5 +53,15 @@ export class AddProjectPage {
           this.project.addPhoto(photo);
         }
       });
+  }
+
+  getLocation() {
+    this.nav.push(SelectLocationPage, {
+      project: this.project
+    });
+  }
+
+  removeLocation() {
+    delete this.project.location;
   }
 }

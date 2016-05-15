@@ -1,0 +1,18 @@
+<ion-navbar *navbar primary>
+  <ion-title>
+    Select Location
+  </ion-title>
+  <ion-buttons end *ngIf="mapReady">
+    <button (click)="setLocation()">
+      SET LOCATION
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-content class="select-location">
+  <google-maps *ngIf="location"
+               [center]="location"
+               [markers]="[location]"
+               (mapClick)="onMapClicked($event)"
+               (mapReady)="onMapReady($event)"></google-maps>
+</ion-content>

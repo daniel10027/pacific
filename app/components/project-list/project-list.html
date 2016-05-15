@@ -1,11 +1,19 @@
-<ion-card *ngFor="#project of projects" (click)="openProject(project)">
-  <img src="{{ project.cover }}" *ngIf="project.cover" />
-  <ion-card-content>
-    <ion-card-title>
-      {{ project.name }}
-    </ion-card-title>
-    <p>
-      {{ project.description }}
-    </p>
-  </ion-card-content>
-</ion-card>
+<div class="project-list">
+  <ion-card *ngFor="#project of projects" (click)="openProject(project)">
+    <div *ngIf="project.cover" class="cover">
+      <img src="{{ project.cover }}" />
+      <button fab fab-right fab-bottom *ngIf="project.location" class="fab-map">
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </div>
+
+    <ion-card-content>
+      <ion-card-title>
+        {{ project.name }}
+      </ion-card-title>
+      <p>
+        {{ project.description }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+</div>

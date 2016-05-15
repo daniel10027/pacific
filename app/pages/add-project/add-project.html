@@ -9,7 +9,7 @@
   </ion-buttons>
 </ion-navbar>
 
-<ion-content>
+<ion-content class="add-project">
   <form [ngFormModel]="projectForm" (ngSubmit)="saveProject(projectForm.value)">
     <ion-list>
       <ion-item [class.error]="!name.valid && name.touched">
@@ -23,6 +23,18 @@
       </ion-item>
     </ion-list>
   </form>
+
+  <p *ngIf="project.location">
+    <google-maps [center]="project.location" [markers]="[project.location]"></google-maps>
+    <button full (click)="removeLocation()">
+      <ion-icon name="locate"></ion-icon> Remove Location
+    </button>
+  </p>
+  <p *ngIf="!project.location">
+    <button full (click)="getLocation()">
+      <ion-icon name="locate"></ion-icon> Add Location
+    </button>
+  </p>
 
   <project-photo-list [project]="project" [editable]="true"></project-photo-list>
 

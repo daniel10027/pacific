@@ -41,6 +41,7 @@ export class ProjectService {
     project._id = doc._id;
     project.name = doc.name;
     project.description = doc.description;
+    project.location = doc.location;
     project.cover = doc.cover;
     project.photos = doc.photos;
     return project;

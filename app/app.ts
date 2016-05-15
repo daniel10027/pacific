@@ -3,12 +3,14 @@ import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
 import {ProjectService} from './services/project';
 import {PictureService} from './services/picture';
+import {LocationService} from './services/location';
 
 @App({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
   providers: [
     ProjectService,
-    PictureService
+    PictureService,
+    LocationService
   ],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })

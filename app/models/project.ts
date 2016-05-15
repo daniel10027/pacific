@@ -1,7 +1,13 @@
+export interface ProjectLocation {
+  latitude: number;
+  longitude: number;
+}
+
 export class Project {
   _id: string;
   name: string;
   description: string;
+  location: ProjectLocation;
   cover: string;
   photos: Array<string> = [];
 

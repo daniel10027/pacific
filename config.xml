@@ -34,4 +34,5 @@
     <plugin name="ionic-plugin-keyboard" spec="~2.1.0" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.3" />
     <plugin name="cordova-plugin-camera" spec="~2.2.0" />
+    <plugin name="cordova-plugin-geolocation" spec="~2.2.0" />
 </widget>
