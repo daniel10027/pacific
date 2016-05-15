@@ -1,7 +1,12 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar primary>
   <ion-title>
     Projects
   </ion-title>
+  <ion-buttons end>
+    <button (click)="mapIconTapped()">
+      <ion-icon name="map"></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>
 
 <ion-content class="home">

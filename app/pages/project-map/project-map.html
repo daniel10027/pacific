@@ -1,0 +1,11 @@
+<ion-navbar *navbar primary>
+  <ion-title>
+    Project Map
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="project-map">
+  <google-maps *ngIf="currentLocation"
+               [center]="currentLocation"
+               [markers]="projectLocations"></google-maps>
+</ion-content>

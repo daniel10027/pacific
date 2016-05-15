@@ -2,6 +2,7 @@ import {Page, NavController} from 'ionic-angular';
 import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project';
 import {AddProjectPage} from '../add-project/add-project';
+import {ProjectMapPage} from '../project-map/project-map';
 import {ProjectList} from '../../components/project-list/project-list';
 
 @Page({
@@ -27,5 +28,9 @@ export class HomePage {
 
   addProjectTapped() {
     this.nav.push(AddProjectPage, {});
+  }
+
+  mapIconTapped() {
+    this.nav.push(ProjectMapPage, {});
   }
 }

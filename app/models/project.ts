@@ -3,6 +3,10 @@ export interface ProjectLocation {
   longitude: number;
 }
 
+export interface ProjectMarker extends ProjectLocation {
+  project?: Project;
+}
+
 export class Project {
   _id: string;
   name: string;

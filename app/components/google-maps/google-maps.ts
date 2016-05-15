@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, NgZone} from 'angular2/core';
-import {ProjectLocation} from '../../models/project';
+import {ProjectLocation, ProjectMarker} from '../../models/project';
 
 declare var google;
 
@@ -12,7 +12,7 @@ const DEFAULT_ZOOM = 15;
 })
 export class GoogleMaps {
   @Input() center: ProjectLocation;
-  @Input() markers: Array<ProjectLocation>;
+  @Input() markers: Array<ProjectMarker>;
   @Output() mapClick: EventEmitter<ProjectLocation> = new EventEmitter();
   @Output() mapReady: EventEmitter<{}> = new EventEmitter();
   private _map: any;
@@ -51,13 +51,22 @@ export class GoogleMaps {
 
   private updateMarkers() {
     this._markers = this.markers.map(marker => {
-      return new google.maps.Marker({
+      let gMarker = new google.maps.Marker({
         map: this._map,
         position: {
           lat: marker.latitude,
           lng: marker.longitude
         }
       });
+      if(marker.project) {
+        // Show an info window when the marker is clicked
+        gMarker.addListener('click', () => {
+          new google.maps.InfoWindow({
+            content: `<strong>${marker.project.name}</strong>`
+          }).open(this._map, gMarker);
+        });
+      }
+      return gMarker;
     });
   }
 
