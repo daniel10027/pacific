@@ -1,14 +1,30 @@
 import {Injectable} from 'angular2/core';
+import {Platform} from 'ionic-angular';
 import {Project} from '../models/project';
 const PouchDB = require('pouchdb');
 
 @Injectable()
 export class ProjectService {
   private DB_NAME: string = 'projects';
-  private db = new PouchDB(this.DB_NAME, { adapter: 'websql', location:'default' });
+  private db;
+
+  constructor(private platform: Platform) {
+    this.initializeDB();
+  }
+
+  private initializeDB() {
+    this.platform.ready()
+      .then(() => {
+        this.db = new PouchDB(this.DB_NAME, {
+          adapter: 'websql',
+          location:'default'
+        });
+      });
+  }
 
   get(id: string): Promise<Project> {
-    return this.db.get(id)
+    return this.platform.ready()
+      .then(() => this.db.get(id))
       .then(ProjectService.mapProject);
   }
 
@@ -16,7 +32,8 @@ export class ProjectService {
     const _options = Object.assign({
       include_docs: true
     }, options);
-    return this.db.allDocs(_options)
+    return this.platform.ready()
+      .then(() => this.db.allDocs(_options))
       .then(results => results.rows.map(item => ProjectService.mapProject(item.doc)));
   }
 
@@ -25,15 +42,18 @@ export class ProjectService {
       return Promise.reject(new Error('Trying to save an invalid project'));
     }
     project._id = new Date().toISOString();
-    return this.db.post(project);
+    return this.platform.ready()
+      .then(() => this.db.post(project));
   }
 
   update(project: Project): Promise<any> {
-    return this.db.put(project);
+    return this.platform.ready()
+      .then(() => this.db.put(project));
   }
 
   remove(project: Project): Promise<any> {
-    return this.db.remove(project);
+    return this.platform.ready()
+      .then(() => this.db.remove(project));
   }
 
   private static mapProject(doc) {
