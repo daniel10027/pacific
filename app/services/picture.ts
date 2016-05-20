@@ -5,7 +5,10 @@ import {Camera} from 'ionic-native';
 export class PictureService {
 
   getPicture(): Promise<any> {
-    return Camera.getPicture({});
+    const options = {
+      destinationType: Camera.DestinationType.DATA_URL
+    };
+    return Camera.getPicture(options);
   }
 
 }

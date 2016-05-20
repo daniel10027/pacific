@@ -1,7 +1,7 @@
 <div class="project-list">
   <ion-card *ngFor="#project of projects" (click)="openProject(project)">
     <div *ngIf="project.cover" class="cover">
-      <img src="{{ project.cover }}" />
+      <img src="data:image/jpeg;base64,{{ project.cover }}" />
       <button fab fab-right fab-bottom *ngIf="project.location" class="fab-map">
         <ion-icon name="pin"></ion-icon>
       </button>
