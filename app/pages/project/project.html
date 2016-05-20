@@ -2,6 +2,14 @@
   <ion-title>
     Project "{{ project.name }}"
   </ion-title>
+  <ion-buttons end>
+    <button (click)="shareIconTapped()" *ngIf="!project.preview">
+      <ion-icon name="share"></ion-icon>
+    </button>
+    <button (click)="addIconTapped()" *ngIf="project.preview">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>
 
 <ion-content class="project">

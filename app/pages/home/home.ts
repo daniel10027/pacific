@@ -3,7 +3,10 @@ import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project';
 import {AddProjectPage} from '../add-project/add-project';
 import {ProjectMapPage} from '../project-map/project-map';
+import {ProjectPage} from '../project/project';
 import {ProjectList} from '../../components/project-list/project-list';
+
+declare var fileChooser;
 
 @Page({
   templateUrl: 'build/pages/home/home.html',
@@ -32,5 +35,16 @@ export class HomePage {
 
   mapIconTapped() {
     this.nav.push(ProjectMapPage, {});
+  }
+
+  openIconTapped() {
+    fileChooser.open(file => {
+      this.projectService.importProject(file)
+        .then(project => {
+          this.nav.push(ProjectPage, {
+            project
+          });
+        });
+    });
   }
 }

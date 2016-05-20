@@ -1,7 +1,10 @@
 import {Injectable} from 'angular2/core';
 import {Platform} from 'ionic-angular';
+import {File, SocialSharing} from 'ionic-native';
 import {Project} from '../models/project';
 const PouchDB = require('pouchdb');
+
+declare var cordova;
 
 @Injectable()
 export class ProjectService {
@@ -56,6 +59,58 @@ export class ProjectService {
       .then(() => this.db.remove(project));
   }
 
+  shareProject(project: Project): Promise<any> {
+    return this.exportProject(project)
+      .then(projectFile => {
+        SocialSharing.share(project.name, project.description, projectFile);
+      });
+  }
+
+  /**
+   * Creates a JSON file with the project data
+   */
+  exportProject(project: Project): Promise<string> {
+    let fileName = `project-${project.createdAt.getTime()}.json`;
+    return new Promise((resolve, reject) => {
+      File.createFile(ProjectService.CACHE_DIRECTORY, fileName, true)
+        .then(fileEntry => {
+          fileEntry.createWriter(fileWriter => {
+            fileWriter.write(JSON.stringify(project));
+            resolve(ProjectService.CACHE_DIRECTORY + fileName);
+          });
+        }, reject);
+    });
+  }
+
+  /**
+   * Promises a Project from an exported JSON file
+   */
+  importProject(filePath: string): Promise<Project> {
+    let pathParts = filePath.split('/');
+    let fileName = pathParts.pop();
+    let dir = pathParts.join('/') + '/';
+    return File.checkFile(dir, fileName)
+      .then(fileEntry => this.openProjectFile(fileEntry));
+  }
+
+  private openProjectFile(fileEntry): Promise<Project> {
+    return new Promise((resolve, reject) => {
+      fileEntry.file(file => {
+        let reader = new FileReader();
+        reader.readAsText(file);
+        reader.onloadend = function() {
+          try {
+            let project = ProjectService.mapProject(JSON.parse(this.result));
+            project.preview = true;
+            resolve(project);
+          } catch(e) {
+            reject(e);
+          }
+        };
+      });
+    });
+  }
+
   private static mapProject(doc) {
     let project = new Project();
     project._id = doc._id;
@@ -65,5 +120,9 @@ export class ProjectService {
     project.cover = doc.cover;
     project.photos = doc.photos;
     return project;
+  }
+
+  private static get CACHE_DIRECTORY() {
+    return cordova.file.externalCacheDirectory;
   }
 }

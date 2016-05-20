@@ -14,6 +14,7 @@ export class Project {
   location: ProjectLocation;
   cover: string;
   photos: Array<string> = [];
+  preview: boolean;
 
   addPhoto(photo: string) {
     this.photos.push(photo);

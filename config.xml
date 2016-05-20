@@ -35,4 +35,7 @@
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.3" />
     <plugin name="cordova-plugin-camera" spec="~2.2.0" />
     <plugin name="cordova-plugin-geolocation" spec="~2.2.0" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="~5.0.12" />
+    <plugin name="cordova-plugin-file" spec="~4.2.0" />
+    <plugin name="com.megster.cordova.FileChooser" spec="http://github.com/don/cordova-filechooser" />
 </widget>
